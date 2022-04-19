@@ -1,0 +1,15 @@
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/bin/Debug/net6.0/N-puzzle
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/bin/Debug/net6.0/N-puzzle.deps.json
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/bin/Debug/net6.0/N-puzzle.runtimeconfig.json
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/bin/Debug/net6.0/N-puzzle.dll
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/bin/Debug/net6.0/ref/N-puzzle.dll
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/bin/Debug/net6.0/N-puzzle.pdb
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.csproj.AssemblyReference.cache
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.AssemblyInfoInputs.cache
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.AssemblyInfo.cs
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.csproj.CoreCompileInputs.cache
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.dll
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/ref/N-puzzle.dll
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.pdb
+/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.genruntimeconfig.cache
