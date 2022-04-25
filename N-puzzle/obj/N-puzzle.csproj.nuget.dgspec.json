@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/N-puzzle.csproj": {}
+    "C:\\Users\\sebas\\RiderProjects\\NPuzzle\\N-puzzle\\N-puzzle.csproj": {}
   },
   "projects": {
-    "/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/N-puzzle.csproj": {
+    "C:\\Users\\sebas\\RiderProjects\\NPuzzle\\N-puzzle\\N-puzzle.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/N-puzzle.csproj",
+        "projectUniqueName": "C:\\Users\\sebas\\RiderProjects\\NPuzzle\\N-puzzle\\N-puzzle.csproj",
         "projectName": "N-puzzle",
-        "projectPath": "/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/N-puzzle.csproj",
-        "packagesPath": "/mnt/nfs/homes/smerelo/.nuget/packages/",
-        "outputPath": "/mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/",
+        "projectPath": "C:\\Users\\sebas\\RiderProjects\\NPuzzle\\N-puzzle\\N-puzzle.csproj",
+        "packagesPath": "C:\\Users\\sebas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sebas\\RiderProjects\\NPuzzle\\N-puzzle\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/mnt/nfs/homes/smerelo/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\sebas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -52,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/mnt/nfs/homes/smerelo/.brew/Cellar/dotnet/6.0.104/libexec/sdk/6.0.104/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -12,19 +12,9 @@ namespace n_puzzle
         public int g;
         public Node parent;
         public Point pos;
+        public int key;
+        public bool IsClosed { get; set;}
         
-
-        public Node (Node _parent, Point _pos, int moveDir, int _g)
-        {
-            pos = _pos;
-            parent = _parent;
-            CopyGrid(parent.grid);
-            grid = MovePos(moveDir, grid, pos);
-            h = Tools.GetHValue(grid);
-            g = _g;
-            f = g + h;
-        }
-
         public Node()
         {
             
@@ -39,6 +29,7 @@ namespace n_puzzle
         }
         private void CopyGrid(int[,] source)
         {
+            key = 1430287;
             if (grid == null)
             {
                  grid = new int[Tools.n, Tools.n];
@@ -48,6 +39,7 @@ namespace n_puzzle
                 for (int j = 0; j < Tools.n; j++)
                 {
                     grid[i, j] = source[i,j];
+                    key = key * 7302013 ^ source[i, j].GetHashCode();
                 }
             }
         }
@@ -94,18 +86,37 @@ namespace n_puzzle
             parent = currentState;
             CopyGrid(parent.grid);
             grid = MovePos(moveDir, grid, pos);
+            SetHashCode();
             h = Tools.GetHValue(grid);
             g = currentState.g + 1;
             f = g + h;
+            IsClosed = false;
         }
 
-        public void CloneNode(Node node)
+        private void SetHashCode()
+        {
+            key = 1430287;
+
+            for (int i = 0; i < Tools.n; i++)
+            {
+                for (int j = 0; j < Tools.n; j++)
+                {
+                    key = key * 7302013 ^ grid[i, j].GetHashCode();
+
+                }
+            }
+        }
+
+        public Node CloneNode(Node node)
         {
             pos = node.pos;
             parent = node.parent;
             CopyGrid(node.grid);
             h = node.h;
+            g = node.g;
             f = node.f;
+            IsClosed = false;
+            return this;
         }
     }
 }

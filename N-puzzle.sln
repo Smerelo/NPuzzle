@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "N-puzzle", "N-puzzle\N-puzzle.csproj", "{97A72C1F-37F8-4D17-913F-CA4301B5D09F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalkingDistanceDB", "WalkingDistanceDB\WalkingDistanceDB.csproj", "{09A62806-2BFF-4160-9765-B7ADA1B2300B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{97A72C1F-37F8-4D17-913F-CA4301B5D09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97A72C1F-37F8-4D17-913F-CA4301B5D09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97A72C1F-37F8-4D17-913F-CA4301B5D09F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09A62806-2BFF-4160-9765-B7ADA1B2300B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09A62806-2BFF-4160-9765-B7ADA1B2300B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09A62806-2BFF-4160-9765-B7ADA1B2300B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09A62806-2BFF-4160-9765-B7ADA1B2300B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

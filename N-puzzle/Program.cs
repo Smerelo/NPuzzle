@@ -19,8 +19,8 @@ namespace n_puzzle
             Node grid = Tools.FillGrid(text);
             if (grid != null)
             {
-                //Search.Solve(grid);
-                Search.SolveIDA(grid);
+                Search.Solve(grid);
+                //Search.SolveIDA(grid);
             }
 
         }

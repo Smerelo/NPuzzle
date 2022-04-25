@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using System.Numerics;
 
 namespace n_puzzle
 {
@@ -10,58 +11,78 @@ namespace n_puzzle
         private static List<Node> nextNodes;
         private  static List<int> possibleMoves;
         private static List<int> solutionMoves;
-
+        private static Dictionary<int, Node>buckets;
         public static void Solve(Node initialState)
         {
-            List<Node> openList = new List<Node>();
-            List<Node> closedList = new List<Node>();
-            List<Node> currentNodes = new List<Node>();
-
-            openList.Add(initialState);
-            int i = -1;
+            buckets = new Dictionary<int, Node>();
+            possibleMoves = new List<int>();
+            nextNodes = new List<Node>{new Node(), new Node(), new Node(), new Node()};
+            PriorityQueue<int, int> openList = new PriorityQueue<int, int>();
+          
+            buckets.Add(initialState.key, initialState);
+            openList.Enqueue(initialState.key, initialState.f);
             while (openList.Count != 0)
             {
-                Node currentNode = GetMinfNode(openList);
-                //Tools.DisplayGrid(currentNode.grid);
+                int key = openList.Dequeue();
+                if (!buckets.TryGetValue(key, out Node currentNode))
+                {
+                    return;
+                }
+
                 if (currentNode.h == 0)
                 {
                     Console.WriteLine("Goal Reached");
                     Console.WriteLine(currentNode.g) ;
-                    Tools.DisplayGrid(currentNode.grid);
+                    ShowFullPath(currentNode);
+                    Tools.DisplayGrid(initialState.grid);
                     break;
                 }
-                closedList.Add(currentNode);
-                openList.Remove(currentNode);
                 GetNextNodes(currentNode);
+                currentNode.IsClosed = true;
                 foreach (Node node in  nextNodes)
                 {
-                    if (CompareNodes(node, closedList) != -1)
+                    key = node.key;
+                    Node tmp;
+                    if (node.grid == null)
                     {
-                        /*Console.WriteLine($"In ClosedList h: {node.h} g: {node.g}");
-                        Tools.DisplayGrid(node.grid);*/
                         continue;
                     }
-                    if ((i = CompareNodes(node,openList)) == -1)
+                    if (buckets.TryGetValue(key, out tmp) && tmp.IsClosed)
                     {
-                        /*Console.WriteLine($"Not in openList h: {node.h} g: {node.g}");
-                        Tools.DisplayGrid(node.grid);*/
+                        continue;
+                    }
+                    if (!buckets.ContainsKey(key))
+                    {
+                        buckets.Add(key, node);
 
-                        openList.Add(node);
+                        openList.Enqueue(key, node.f);
                     }
                     else
                     {
-                       /* Console.WriteLine($"In openList h: {node.h} g: {node.g}");
-                        Tools.DisplayGrid(node.grid);*/
-                        if (node.g < openList[i].g)
+                        if (buckets.TryGetValue(key, out  tmp) && node.g < tmp.g)
                         {
-                            openList[i].g = node.g;
-                            openList[i].f = node.f;
-                            openList[i].parent = node.parent;
+                            tmp.g = node.g;
+                            tmp.f = node.f;
+                            tmp.parent = node.parent;
+                            openList.Enqueue(key, tmp.f);
                         }
                     }
                 }
             }
 
+        }
+
+        private static void ShowFullPath(Node currentNode)
+        {
+            List<Node> path = new List<Node>();
+            Node tmp;
+            Tools.DisplayGrid(currentNode.grid);
+            while (currentNode.parent.g > 0)
+            {
+                Tools.DisplayGrid(currentNode.grid);
+                currentNode = currentNode.parent;
+            }
+            Tools.DisplayGrid(currentNode.grid);
         }
 
 
@@ -171,8 +192,10 @@ namespace n_puzzle
         {
             GetPossibleMoves(currentState.pos);
             for (int i = 0; i < possibleMoves.Count; i++)
-            { 
-                nextNodes[i].CopyNode(currentState, possibleMoves[i]);
+            {
+                Node tmp = new Node();
+                tmp.CopyNode(currentState, possibleMoves[i]);
+                nextNodes[i] = tmp;
             }
         }
 
