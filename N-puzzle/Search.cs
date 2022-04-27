@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Drawing;
 using System.Numerics;
@@ -11,30 +12,37 @@ namespace n_puzzle
         private static List<Node> nextNodes;
         private  static List<int> possibleMoves;
         private static List<int> solutionMoves;
-        private static Dictionary<int, Node>buckets;
+        private static Dictionary<int, Node>dictionary;
+        
         public static void Solve(Node initialState)
         {
-            buckets = new Dictionary<int, Node>();
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            dictionary = new Dictionary<int, Node>();
             possibleMoves = new List<int>();
             nextNodes = new List<Node>{new Node(), new Node(), new Node(), new Node()};
             PriorityQueue<int, int> openList = new PriorityQueue<int, int>();
           
-            buckets.Add(initialState.key, initialState);
+            dictionary.Add(initialState.key, initialState);
             openList.Enqueue(initialState.key, initialState.f);
             while (openList.Count != 0)
             {
                 int key = openList.Dequeue();
-                if (!buckets.TryGetValue(key, out Node currentNode))
+                if (!dictionary.TryGetValue(key, out Node currentNode))
                 {
                     return;
                 }
 
                 if (currentNode.h == 0)
                 {
+                    stopwatch.Stop();
                     Console.WriteLine("Goal Reached");
                     Console.WriteLine(currentNode.g) ;
-                    ShowFullPath(currentNode);
+                    Console.WriteLine($"Elapsed time {stopwatch.ElapsedMilliseconds} ms");
+                    Console.WriteLine("0");
                     Tools.DisplayGrid(initialState.grid);
+                    
+                    ShowFullPath(currentNode);
                     break;
                 }
                 GetNextNodes(currentNode);
@@ -47,19 +55,18 @@ namespace n_puzzle
                     {
                         continue;
                     }
-                    if (buckets.TryGetValue(key, out tmp) && tmp.IsClosed)
+                    if (dictionary.TryGetValue(key, out tmp) && tmp.IsClosed)
                     {
                         continue;
                     }
-                    if (!buckets.ContainsKey(key))
+                    if (!dictionary.ContainsKey(key))
                     {
-                        buckets.Add(key, node);
-
+                        dictionary.Add(key, node);
                         openList.Enqueue(key, node.f);
                     }
                     else
                     {
-                        if (buckets.TryGetValue(key, out  tmp) && node.g < tmp.g)
+                        if (dictionary.TryGetValue(key, out  tmp) && node.g < tmp.g)
                         {
                             tmp.g = node.g;
                             tmp.f = node.f;
@@ -75,14 +82,24 @@ namespace n_puzzle
         private static void ShowFullPath(Node currentNode)
         {
             List<Node> path = new List<Node>();
-            Node tmp;
-            Tools.DisplayGrid(currentNode.grid);
-            while (currentNode.parent.g > 0)
+            Node tmp = currentNode; 
+            path.Add(tmp);
+            while (currentNode.parent.g >= 0)
             {
-                Tools.DisplayGrid(currentNode.grid);
+                path.Add(currentNode);
+                if(currentNode.parent.g == 0)
+                    break;
                 currentNode = currentNode.parent;
             }
-            Tools.DisplayGrid(currentNode.grid);
+
+            int j = 1;
+            for (int i = path.Count - 1; i > 0; i--)
+            {
+                Console.WriteLine(j);
+                j++;
+                Tools.DisplayGrid(path[i].grid);
+            }
+
         }
 
 
@@ -108,15 +125,7 @@ namespace n_puzzle
             }
         }
 
-        private static  void ShowPath(Node start)
-        {
-            Tools.DisplayGrid(start.grid);
-            for (int i = 1; i < solutionMoves.Count; i++)
-            {
-                start.grid = start.MovePos(solutionMoves[i], start.grid, start.pos);
-                Tools.DisplayGrid(start.grid);
-            }
-        }
+        
 
         private static int Find(Node node, int g, int threshold, int move)
         {
@@ -158,36 +167,16 @@ namespace n_puzzle
             return min;
         }
 
-        private static int CompareNodes(Node node, List<Node> nodeList)
+        private static  void ShowPath(Node start)
         {
-            int i = 0; 
-            foreach (Node node1 in nodeList)
+            Tools.DisplayGrid(start.grid);
+            for (int i = 1; i < solutionMoves.Count; i++)
             {
-
-                if (Tools.CompareGrids(node.grid, node1.grid))
-                {
-                    return i;
-                }
-                i++;
+                start.grid = start.MovePos(solutionMoves[i], start.grid, start.pos);
+                Tools.DisplayGrid(start.grid);
             }
-            return -1;
         }
-
-        private static Node GetMinfNode(List<Node> openList)
-        {
-            int f = 2000;
-            Node tNode = null;
-            foreach (Node node in openList)
-            {
-                if ( node.f < f)
-                {
-                    f = node.f;
-                    tNode = node;
-                }
-            }
-            return tNode;
-        }
-
+        
         private static void GetNextNodes(Node currentState)
         {
             GetPossibleMoves(currentState.pos);

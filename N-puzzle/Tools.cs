@@ -10,6 +10,7 @@ namespace n_puzzle
     {
         public static int n;
         public static Point[] goalState;
+        private static List<List<int>> conflictGraph;
         public static Node FillGrid(string text)
         {
             text = RemoveBetween(text, "#", "$");
@@ -148,21 +149,21 @@ namespace n_puzzle
             return 0;
         }
 
-        public static int GetHValue(int[,] nodeState)
+        public static int GetHValue(int[,] grid)
         {
             int h = 0;
             Point p;
             Point p2;
-            for (int i = 0; i < Tools.n; i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < Tools.n; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    if (nodeState[i,j] == 0)
+                    if (grid[i,j] == 0)
                     {
                         continue;
                     }
                     p = new Point { X = i, Y = j }; // pos of current number
-                    p2 = goalState[nodeState[i, j]]; // pos of current number in the goal state
+                    p2 = goalState[grid[i, j]]; // pos of current number in the goal state
                     if (p != p2)
                     {
                         h += Math.Abs(p2.X - p.X) + Math.Abs(p2.Y - p.Y);
@@ -171,6 +172,121 @@ namespace n_puzzle
             }
 
             return h;
+        }
+
+        public static int GetHValueLC(int[,] grid)
+        {
+            int h = 0;
+            Point p;
+            Point p2;
+            conflictGraph = new List<List<int>>();
+           
+            int lc = 0;
+            for (int i = 0; i < n*n; i++)
+            {
+                conflictGraph.Add(new List<int>());
+            }
+            for (int i = 0; i < n; i++)
+            {
+                 
+                lc += GetHorizontalConflicts(i, grid);
+                for (int j = 0; j < n; j++)
+                {
+                    if (i == 0)
+                    {
+                        lc += GetVerticalConflicts(j, grid);
+                    }
+
+                    if (grid[i, j] == 0)
+                    {
+                        continue;
+                    }
+
+                    p = new Point {X = i, Y = j}; // pos of current number
+                    p2 = goalState[grid[i, j]]; // pos of current number in the goal state
+                    if (p != p2)
+                    {
+                        
+                        h += Math.Abs(p2.X - p.X) + Math.Abs(p2.Y - p.Y);
+                    }
+                }
+            }
+            
+            return h + lc * 2;
+        }
+
+        private static int GetVerticalConflicts(int col, int[,] grid)
+        {
+            int lc = 0;
+            for (int i = 0; i < n; i++)
+            {
+                int nb = grid[i, col];
+                if (nb == 0)
+                    continue;
+                Point p1 = goalState[nb];
+                for (int j = i + 1; j < n; j++)
+                {
+                    int nb2 = grid[j, col];
+                    if (nb2 == 0)
+                        continue;
+                    Point p2 = goalState[nb];
+                    if (p2.X <= p1.X)
+                    {
+                        conflictGraph[nb].Add(nb2);
+                        conflictGraph[nb2].Add(nb);
+                    }
+                }
+            }
+
+            while (conflictGraph.SelectMany(x => x).Any())
+            {
+                int max = conflictGraph.Max(x => x.Count);
+                int index = conflictGraph.FindIndex(x => x.Count == max);
+                foreach (int neighbour  in conflictGraph[index])
+                {
+                    conflictGraph[neighbour].Remove(index);
+                    lc++;
+                }
+                conflictGraph[index].Clear();
+            }
+            return lc;
+        }
+
+        private static int GetHorizontalConflicts(int row, int[,] grid)
+        {
+            int lc = 0;
+            for (int i = 0; i < n; i++)
+            {
+                int nb = grid[row, i];
+                if (nb == 0)
+                    continue;
+                Point p1 = goalState[nb];
+                for (int j = i + 1; j < n; j++)
+                {
+                    int nb2 = grid[row, j];
+                    if (nb2 == 0)
+                        continue;
+                    Point p2 = goalState[nb];
+                    if (p2.Y <= p1.Y)
+                    {
+                        conflictGraph[nb].Add(nb2);
+                        conflictGraph[nb2].Add(nb);
+                    }
+                }
+            }
+
+            while (conflictGraph.SelectMany(x => x).Any())
+            {
+                int max = conflictGraph.Max(x => x.Count);
+                int index = conflictGraph.FindIndex(x => x.Count == max);
+                foreach (int neighbour  in conflictGraph[index])
+                {
+                    conflictGraph[neighbour].Remove(index);
+                    lc++;
+                }
+                conflictGraph[index].Clear();
+            }
+            return lc;
         }
 
         private static Point[] GenerateGoal()
@@ -219,25 +335,7 @@ namespace n_puzzle
             }
             return p;
         }
-
-
-        public  static bool CompareGrids(int[,] g1, int[,] g2)
-       {
-
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    if (g1[i,j] != g2[i,j])
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
-
+        
         public static void DisplayGrid(int[,] grid)
         {
 

@@ -13,6 +13,7 @@
 /mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/ref/N-puzzle.dll
 /mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.pdb
 /mnt/nfs/homes/smerelo/RiderProjects/N-puzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.genruntimeconfig.cache
+/mnt/c/Users/sebas/RiderProjects/NPuzzle/N-puzzle/obj/Debug/net6.0/N-puzzle.pdb
 C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\bin\Debug\net6.0\N-puzzle.exe
 C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\bin\Debug\net6.0\N-puzzle.deps.json
 C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\bin\Debug\net6.0\N-puzzle.runtimeconfig.json
@@ -28,3 +29,18 @@ C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\obj\Debug\net6.0\refint\N-puzzle.d
 C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\obj\Debug\net6.0\N-puzzle.pdb
 C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\obj\Debug\net6.0\N-puzzle.genruntimeconfig.cache
 C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\obj\Debug\net6.0\ref\N-puzzle.dll
+C:\Users\sebas\RiderProjects\NPuzzle\test\N-puzzle.exe
+C:\Users\sebas\RiderProjects\NPuzzle\test\N-puzzle.deps.json
+C:\Users\sebas\RiderProjects\NPuzzle\test\N-puzzle.runtimeconfig.json
+C:\Users\sebas\RiderProjects\NPuzzle\test\N-puzzle.dll
+C:\Users\sebas\RiderProjects\NPuzzle\test\N-puzzle.pdb
+C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\test\N-puzzle.exe
+C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\test\N-puzzle.deps.json
+C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\test\N-puzzle.runtimeconfig.json
+C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\test\N-puzzle.dll
+C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\test\N-puzzle.pdb
+C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\here\N-puzzle.exe
+C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\here\N-puzzle.deps.json
+C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\here\N-puzzle.runtimeconfig.json
+C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\here\N-puzzle.dll
+C:\Users\sebas\RiderProjects\NPuzzle\N-puzzle\here\N-puzzle.pdb
