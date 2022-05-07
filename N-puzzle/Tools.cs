@@ -174,14 +174,14 @@ namespace n_puzzle
             return h;
         }
 
-        public static int GetHValueLC(int[,] grid)
+        public static int GetHValueLC(int[,] grid, out int lc)
         {
             int h = 0;
             Point p;
             Point p2;
             conflictGraph = new List<List<int>>();
            
-            int lc = 0;
+            lc = 0;
             for (int i = 0; i < n*n; i++)
             {
                 conflictGraph.Add(new List<int>());
@@ -212,10 +212,10 @@ namespace n_puzzle
                 }
             }
             
-            return h + lc * 2;
+            return h + lc;
         }
 
-        private static int GetVerticalConflicts(int col, int[,] grid)
+        public static int GetVerticalConflicts(int col, int[,] grid)
         {
             int lc = 0;
             for (int i = 0; i < n; i++)
@@ -229,7 +229,7 @@ namespace n_puzzle
                     int nb2 = grid[j, col];
                     if (nb2 == 0)
                         continue;
-                    Point p2 = goalState[nb];
+                    Point p2 = goalState[nb2];
                     if (p2.X <= p1.X)
                     {
                         conflictGraph[nb].Add(nb2);
@@ -249,10 +249,10 @@ namespace n_puzzle
                 }
                 conflictGraph[index].Clear();
             }
-            return lc;
+            return lc * 2;
         }
 
-        private static int GetHorizontalConflicts(int row, int[,] grid)
+        public static int GetHorizontalConflicts(int row, int[,] grid)
         {
             int lc = 0;
             for (int i = 0; i < n; i++)
@@ -266,7 +266,7 @@ namespace n_puzzle
                     int nb2 = grid[row, j];
                     if (nb2 == 0)
                         continue;
-                    Point p2 = goalState[nb];
+                    Point p2 = goalState[nb2];
                     if (p2.Y <= p1.Y)
                     {
                         conflictGraph[nb].Add(nb2);
@@ -286,7 +286,7 @@ namespace n_puzzle
                 }
                 conflictGraph[index].Clear();
             }
-            return lc;
+            return lc * 2;
         }
 
         private static Point[] GenerateGoal()
