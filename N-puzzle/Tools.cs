@@ -13,8 +13,8 @@ namespace n_puzzle
         private static List<List<int>> conflictGraph;
         public static Node FillGrid(string text)
         {
-            text = RemoveBetween(text, "#", "$");
-            string[] rows = text.Split("$", StringSplitOptions.RemoveEmptyEntries);
+            text = RemoveBetween(text, "#", "\n");
+            string[] rows = text.Split("\n", StringSplitOptions.RemoveEmptyEntries);
             n = Int32.Parse(rows[0]);
       
             Console.WriteLine($"Size: {n}");
@@ -34,14 +34,14 @@ namespace n_puzzle
                         pos = new Point { X = i, Y = j };
                 }
             }
-            //DisplayGrid(grid);
             Node initialNode = new Node(pos, grid);
             if (!IsSolvable(initialNode, solution))
             {
+                DisplayGrid(grid);
                 Console.WriteLine("Puzzle is unsolvable");
                 return null;
             }
-           
+            DisplayGrid(grid);
             return initialNode;
 
         }

@@ -14,18 +14,19 @@ namespace n_puzzle
         public Point pos;
         public int key;
         public int lc;
-        public bool IsClosed { get; set;}
+        public bool IsClosed;
         
         public Node()
         {
             
         }
+
         public Node(Point _pos, int[,] _grid)
         {
             pos = _pos;
             grid = _grid;
-            //h = Tools.GetHValue(grid);
-            h = Tools.GetHValueLC(grid, out lc);
+            h = Tools.GetHValue(grid);
+            //h = Tools.GetHValueLC(grid, out lc);
             g = 0;
             f = h;
         }

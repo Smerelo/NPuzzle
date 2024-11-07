@@ -99,73 +99,8 @@ namespace n_puzzle
                 j++;
                 Tools.DisplayGrid(path[i].grid);
             }
-
         }
 
-
-        public static int SolveIDA(Node start)
-        {
-            Node s = new Node();
-            s.CloneNode(start);
-            int threshold = start.h;
-            int tmp;
-            nextNodes = new List<Node>{new Node(), new Node(), new Node(), new Node()};
-            possibleMoves = new List<int>();
-            solutionMoves = new List<int>();
-            while (true)
-            {
-                solutionMoves.Clear();
-                tmp = Find(s, 0, threshold, -1);
-                if (tmp == -1)
-                {
-                    ShowPath(start);
-                    return 1;
-                }
-                threshold = tmp;
-            }
-        }
-
-        
-
-        private static int Find(Node node, int g, int threshold, int move)
-        {
-            int f = g + node.h;
-            if (solutionMoves.Count < g + 1 )
-            {
-                solutionMoves.Add(move);
-            }
-            else
-            {
-                solutionMoves[g] = move;
-            }
-            if (f> threshold)
-            {
-                return f;
-            }
-            if (node.h == 0)
-            {
-                return -1; 
-            }
-            int min = int.MaxValue;
-            GetNextNodes(node);
-            
-            Node tempNode = new Node(node.pos, node.grid);
-
-            for (int i = 0; i < possibleMoves.Count; i++)
-            {
-                tempNode.CloneNode(nextNodes[i]);
-                int tmp = Find(tempNode, g + 1, threshold, possibleMoves[i]);
-                if (tmp == -1)
-                {
-                    return -1;
-                }
-                if (tmp < min)
-                {
-                    min = tmp;
-                }
-            }
-            return min;
-        }
 
         private static  void ShowPath(Node start)
         {

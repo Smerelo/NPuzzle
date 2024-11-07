@@ -20,7 +20,6 @@ namespace n_puzzle
             if (grid != null)
             {
                 Search.Solve(grid);
-                //Search.SolveIDA(grid);
             }
 
         }
