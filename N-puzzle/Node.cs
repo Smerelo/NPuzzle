@@ -25,8 +25,18 @@ namespace n_puzzle
         {
             pos = _pos;
             grid = _grid;
-            h = Tools.GetHValue(grid);
-            //h = Tools.GetHValueLC(grid, out lc);
+            switch (Program.heuristicUsed)
+            {
+                case Program.Heuristic.Manhattan:
+                    h = Tools.GetHValueManhattan(grid);
+                    break;
+                case Program.Heuristic.Misplaced:
+                    h = Tools.GetHValueMisplaced(grid);
+                    break;
+                case Program.Heuristic.ManhattanLC:
+                    h = Tools.GetHValueLC(grid, out lc);
+                    break;
+            }
             g = 0;
             f = h;
         }
@@ -99,7 +109,7 @@ namespace n_puzzle
                     preMoveLc_1 = Tools.GetHorizontalConflicts(currentPos.X, currenGrid);
                     preMoveLc_2 = Tools.GetHorizontalConflicts(currentPos.X - 1, currenGrid);
                     posInGoal = Tools.goalState[currenGrid[currentPos.X - 1, currentPos.Y]];
-                    h1 = Math.Abs(posInGoal.X   -(currentPos.X - 1)) + Math.Abs(posInGoal.Y - currentPos.Y);
+                    h1 = Math.Abs(posInGoal.X - (currentPos.X - 1)) + Math.Abs(posInGoal.Y - currentPos.Y);
                     t = currenGrid[currentPos.X -1, currentPos.Y];
                     currenGrid[currentPos.X -1, currentPos.Y] = currenGrid[currentPos.X, currentPos.Y];
                     currenGrid[currentPos.X, currentPos.Y] = t;
@@ -116,6 +126,91 @@ namespace n_puzzle
             h += lc;
             return currenGrid;
         }
+        
+        public int[,] MovePos3(int dir, int[,] currenGrid, Point currentPos)
+        {
+            int t = 0;
+            int h1 = 0;
+            Point posInGoal = new Point();
+            switch (dir)
+            {
+                case 0:
+                    posInGoal = Tools.goalState[currenGrid[currentPos.X, currentPos.Y + 1]];
+                    h1 = Math.Abs(posInGoal.X - currentPos.X) + Math.Abs(posInGoal.Y - (currentPos.Y + 1));
+                    t = currenGrid[currentPos.X, currentPos.Y + 1];
+                    currenGrid[currentPos.X, currentPos.Y + 1] = currenGrid[currentPos.X, currentPos.Y];
+                    currenGrid[currentPos.X, currentPos.Y] = t;
+                    pos.Y += 1;
+                    break;
+                case 1:
+                    posInGoal = Tools.goalState[currenGrid[currentPos.X + 1, currentPos.Y]];
+                    h1 = Math.Abs(posInGoal.X - (currentPos.X + 1)) + Math.Abs(posInGoal.Y - currentPos.Y );
+                    t = currenGrid[currentPos.X + 1, currentPos.Y];
+                    currenGrid[currentPos.X + 1, currentPos.Y] = currenGrid[currentPos.X, currentPos.Y];
+                    currenGrid[currentPos.X, currentPos.Y] = t;
+                    pos.X += 1;
+                    break;
+                case 2:
+                    posInGoal = Tools.goalState[currenGrid[currentPos.X, currentPos.Y - 1]];
+                    h1 = Math.Abs(posInGoal.X - currentPos.X) + Math.Abs(posInGoal.Y - (currentPos.Y -1));
+                    t = currenGrid[currentPos.X, currentPos.Y - 1];
+                    currenGrid[currentPos.X, currentPos.Y -1] = currenGrid[currentPos.X, currentPos.Y];
+                    currenGrid[currentPos.X, currentPos.Y] = t;
+                    pos.Y -= 1;
+                    break;
+                case 3:
+                    posInGoal = Tools.goalState[currenGrid[currentPos.X - 1, currentPos.Y]];
+                    h1 = Math.Abs(posInGoal.X - (currentPos.X - 1)) + Math.Abs(posInGoal.Y - currentPos.Y);
+                    t = currenGrid[currentPos.X -1, currentPos.Y];
+                    currenGrid[currentPos.X -1, currentPos.Y] = currenGrid[currentPos.X, currentPos.Y];
+                    currenGrid[currentPos.X, currentPos.Y] = t;
+                    pos.X -= 1;
+                    break;
+            }
+            posInGoal = Tools.goalState[currenGrid[currentPos.X, currentPos.Y]];
+            int h2 = Math.Abs(posInGoal.X - currentPos.X) + Math.Abs(posInGoal.Y - currentPos.Y);
+            h = parent.h - h1 + h2;
+            return currenGrid;
+        }
+
+        public int[,] MovePos2(int dir, int[,] currenGrid, Point currentPos){
+               int t = 0;
+            Point posInGoal = new Point();
+            switch (dir)
+            {
+                case 0:
+                    posInGoal = Tools.goalState[currenGrid[currentPos.X, currentPos.Y + 1]];
+                    t = currenGrid[currentPos.X, currentPos.Y + 1];
+                    currenGrid[currentPos.X, currentPos.Y + 1] = currenGrid[currentPos.X, currentPos.Y];
+                    currenGrid[currentPos.X, currentPos.Y] = t;
+                    pos.Y += 1;
+                    break;
+                case 1:
+                    posInGoal = Tools.goalState[currenGrid[currentPos.X + 1, currentPos.Y]];
+                    t = currenGrid[currentPos.X + 1, currentPos.Y];
+                    currenGrid[currentPos.X + 1, currentPos.Y] = currenGrid[currentPos.X, currentPos.Y];
+                    currenGrid[currentPos.X, currentPos.Y] = t;
+                    pos.X += 1;
+                    break;
+                case 2:
+                    posInGoal = Tools.goalState[currenGrid[currentPos.X, currentPos.Y - 1]];
+                    t = currenGrid[currentPos.X, currentPos.Y - 1];
+                    currenGrid[currentPos.X, currentPos.Y -1] = currenGrid[currentPos.X, currentPos.Y];
+                    currenGrid[currentPos.X, currentPos.Y] = t;
+                    pos.Y -= 1;
+                    break;
+                case 3:
+                    posInGoal = Tools.goalState[currenGrid[currentPos.X - 1, currentPos.Y]];
+                    t = currenGrid[currentPos.X -1, currentPos.Y];
+                    currenGrid[currentPos.X -1, currentPos.Y] = currenGrid[currentPos.X, currentPos.Y];
+                    currenGrid[currentPos.X, currentPos.Y] = t;
+                    pos.X -= 1;
+                    break;
+            }
+            posInGoal = Tools.goalState[currenGrid[currentPos.X, currentPos.Y]];
+            h = Tools.GetHValueMisplaced(currenGrid);
+            return currenGrid;
+        }
 
         public void CopyNode(Node currentState, int moveDir)
         {
@@ -123,7 +218,18 @@ namespace n_puzzle
             parent = currentState;
             CopyGrid(parent.grid);
             lc = parent.lc;
-            grid = MovePos(moveDir, grid, pos);
+            switch (Program.heuristicUsed)
+            {
+                case Program.Heuristic.Manhattan:
+                    grid = MovePos3(moveDir, grid, pos);
+                    break;
+                case Program.Heuristic.Misplaced:
+                    grid = MovePos2(moveDir, grid, pos);
+                    break;
+                case Program.Heuristic.ManhattanLC:
+                    grid = MovePos(moveDir, grid, pos);
+                    break;
+            }
             SetHashCode();
             g = currentState.g + 1;
             f = g + h;

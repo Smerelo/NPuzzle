@@ -1,0 +1,15 @@
+C:\School\NPuzzle\N-puzzle\bin\Release\net6.0\N-puzzle.exe
+C:\School\NPuzzle\N-puzzle\bin\Release\net6.0\N-puzzle.deps.json
+C:\School\NPuzzle\N-puzzle\bin\Release\net6.0\N-puzzle.runtimeconfig.json
+C:\School\NPuzzle\N-puzzle\bin\Release\net6.0\N-puzzle.dll
+C:\School\NPuzzle\N-puzzle\bin\Release\net6.0\N-puzzle.pdb
+C:\School\NPuzzle\N-puzzle\obj\Release\net6.0\N-puzzle.GeneratedMSBuildEditorConfig.editorconfig
+C:\School\NPuzzle\N-puzzle\obj\Release\net6.0\N-puzzle.AssemblyInfoInputs.cache
+C:\School\NPuzzle\N-puzzle\obj\Release\net6.0\N-puzzle.AssemblyInfo.cs
+C:\School\NPuzzle\N-puzzle\obj\Release\net6.0\N-puzzle.csproj.CoreCompileInputs.cache
+C:\School\NPuzzle\N-puzzle\obj\Release\net6.0\N-puzzle.sourcelink.json
+C:\School\NPuzzle\N-puzzle\obj\Release\net6.0\N-puzzle.dll
+C:\School\NPuzzle\N-puzzle\obj\Release\net6.0\refint\N-puzzle.dll
+C:\School\NPuzzle\N-puzzle\obj\Release\net6.0\N-puzzle.pdb
+C:\School\NPuzzle\N-puzzle\obj\Release\net6.0\N-puzzle.genruntimeconfig.cache
+C:\School\NPuzzle\N-puzzle\obj\Release\net6.0\ref\N-puzzle.dll

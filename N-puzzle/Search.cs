@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Drawing;
-using System.Numerics;
+using static n_puzzle.Program;
 
 namespace n_puzzle
 {
@@ -13,6 +10,7 @@ namespace n_puzzle
         private  static List<int> possibleMoves;
         private static List<int> solutionMoves;
         private static Dictionary<int, Node>dictionary;
+
         
         public static void Solve(Node initialState)
         {
@@ -35,14 +33,13 @@ namespace n_puzzle
 
                 if (currentNode.h == 0)
                 {
-                    stopwatch.Stop();
                     Console.WriteLine("Goal Reached");
                     Console.WriteLine(currentNode.g) ;
-                    Console.WriteLine($"Elapsed time {stopwatch.ElapsedMilliseconds} ms");
                     Console.WriteLine("0");
                     Tools.DisplayGrid(initialState.grid);
                     
                     ShowFullPath(currentNode);
+
                     break;
                 }
                 GetNextNodes(currentNode);

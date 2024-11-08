@@ -20,6 +20,7 @@ namespace n_puzzle
             Console.WriteLine($"Size: {n}");
             goalState = GenerateGoal();
             int [] solution = GenerateSolution();
+
             int[,] grid = new int[n, n];
             string[] tmp;
 
@@ -73,6 +74,7 @@ namespace n_puzzle
             int t = 0;
             int[] puzzle = new int[n * n ];
             int zeroPos = 0;
+            DisplayGrid(start.grid);
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
@@ -84,10 +86,13 @@ namespace n_puzzle
                         t++;
                         continue;
                     }
+
                     puzzle[t] = solution[start.grid[i, j] - 1];
                     t++;
                 }
             }
+            
+            Console.WriteLine();
             var puzzleInvertions = InvertionCount(puzzle);
             if (n % 2 == 0)
             {
@@ -124,12 +129,13 @@ namespace n_puzzle
             int nb = tmp[blankSpace];
             tmp[blankSpace] = 0;
             tmp[pos] = nb;
-            while (tmp[tmp.Length - 1] != 0)
-            {
-                tmp[blankSpace] = tmp[blankSpace + n];
-                tmp[blankSpace + n] = 0;
-            }
+        
+          
+         
+            tmp[blankSpace] = tmp[tmp.Length -1];
+            tmp[tmp.Length - 1]  = 0;
             
+           
             return tmp;
         }
 
@@ -304,11 +310,17 @@ namespace n_puzzle
                 if (x == n - 1 || tmpGrid[x + 1, y] != 0)
                 {
                     direction = 1;
+                   
+
                     if (y == n - 1 || tmpGrid[x, y + 1] != 0)
                     {
                         direction = 2;
                     }
-                }   
+                }
+                if (direction == 2  && x != 0 && tmpGrid[x - 1, y ] != 0)
+                {
+                    direction = 3;
+                }
                 if (x == 0  && y == n -1)
                 {
                     direction = 3;   
@@ -355,6 +367,46 @@ namespace n_puzzle
         {
             var regex = new Regex($"{Regex.Escape(startTag)}(.*?){Regex.Escape(endTag)}", RegexOptions.RightToLeft);
             return regex.Replace(sourceString, startTag + endTag).Trim('#');
+        }
+
+        public static int GetHValueManhattan(int[,] grid)
+        {
+            int h = 0;
+            int n = grid.GetLength(0); // Assuming a square grid
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i, j] != 0) // Assuming 0 is the blank tile
+                    {
+                        int targetX = (grid[i, j] - 1) / n;
+                        int targetY = (grid[i, j] - 1) % n;
+                        h += Math.Abs(targetX - i) + Math.Abs(targetY - j);
+                    }
+                }
+            }
+            return h;
+        }
+
+        public static int GetHValueMisplaced(int[,] grid)
+        {
+            int misplacedCount = 0;
+            int n = grid.GetLength(0); // Assuming a square grid
+            Point p;
+            Point p2;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    p = new Point { X = i, Y = j }; // pos of current number
+                    p2 = goalState[grid[i, j]];
+                    if (p != p2)
+                    {
+                        misplacedCount++;
+                    }
+                }
+            }
+            return misplacedCount;
         }
     }
 }
