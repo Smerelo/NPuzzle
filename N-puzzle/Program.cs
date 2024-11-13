@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using System.Drawing;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 
 namespace n_puzzle
 {
@@ -25,10 +21,24 @@ namespace n_puzzle
                 Environment.Exit(0);    
 
             }
-            
+            switch (args[1])
+            {
+                case "MH":
+                    heuristicUsed = Heuristic.Manhattan;
+                break;
+                case "MLC":
+                    heuristicUsed = Heuristic.ManhattanLC;
+                break;
+                case "MI":
+                    heuristicUsed = Heuristic.Misplaced;
+                break;
+                default:
+                    Console.WriteLine("Heuristic is not valid, options are: MH, MLC, MI");
+                    Environment.Exit(0);    
+                break;
+            }
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            heuristicUsed = Heuristic.ManhattanLC;
             string text = File.ReadAllText(args[0]);
             Node grid = Tools.FillGrid(text);
             if (grid != null)

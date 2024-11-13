@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Drawing;
-using static n_puzzle.Program;
 
 namespace n_puzzle
 {
@@ -33,13 +32,11 @@ namespace n_puzzle
 
                 if (currentNode.h == 0)
                 {
+                    ShowFullPath(currentNode);                    
                     Console.WriteLine("Goal Reached");
-                    Console.WriteLine(currentNode.g) ;
-                    Console.WriteLine("0");
-                    Tools.DisplayGrid(initialState.grid);
-                    
-                    ShowFullPath(currentNode);
-
+                    Console.WriteLine("Total number of states in open set: " + openList.Count);
+                    Console.WriteLine("Total number of states in memory: " + dictionary.Count);
+                    Console.WriteLine("Number of steps to reach goal: "  + currentNode.g) ;
                     break;
                 }
                 GetNextNodes(currentNode);

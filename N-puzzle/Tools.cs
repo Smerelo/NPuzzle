@@ -1,6 +1,3 @@
-    using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
 
@@ -16,8 +13,15 @@ namespace n_puzzle
             text = RemoveBetween(text, "#", "\n");
             string[] rows = text.Split("\n", StringSplitOptions.RemoveEmptyEntries);
             n = Int32.Parse(rows[0]);
-      
-            Console.WriteLine($"Size: {n}");
+            if (rows.Length > n + 1|| rows.Length < n + 1 )
+            {
+                Console.WriteLine("File is not valid");
+                foreach (var item in rows)
+                {
+                    Console.WriteLine(item);
+                }
+                Environment.Exit(0);    
+            }
             goalState = GenerateGoal();
             int [] solution = GenerateSolution();
 
@@ -28,6 +32,13 @@ namespace n_puzzle
             for (int i = 0; i < n; i++)
             {
                 tmp = rows[i + 1].Split(new char[]{' ', '\t', '\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
+                if (tmp.Length != n)
+                {
+                    Console.WriteLine("File is not valid");
+                    foreach (var item in rows)
+                      Console.WriteLine(item);
+                    Environment.Exit(0);    
+                }
                 for (int j = 0; j < n; j++)
                 {
                     grid[i, j] = int.Parse(tmp[j]);
@@ -42,7 +53,8 @@ namespace n_puzzle
                 Console.WriteLine("Puzzle is unsolvable");
                 return null;
             }
-            DisplayGrid(grid);
+            Console.WriteLine("0");
+            DisplayGrid(initialNode.grid);
             return initialNode;
 
         }
@@ -74,7 +86,6 @@ namespace n_puzzle
             int t = 0;
             int[] puzzle = new int[n * n ];
             int zeroPos = 0;
-            DisplayGrid(start.grid);
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
@@ -92,7 +103,6 @@ namespace n_puzzle
                 }
             }
             
-            Console.WriteLine();
             var puzzleInvertions = InvertionCount(puzzle);
             if (n % 2 == 0)
             {
@@ -351,7 +361,6 @@ namespace n_puzzle
         public static void DisplayGrid(int[,] grid)
         {
 
-            Console.WriteLine("");
             for (int i = 0; i < n ; i++)
             {
                 for (int j = 0; j < n ; j++)
