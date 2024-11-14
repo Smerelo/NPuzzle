@@ -10,9 +10,11 @@ namespace n_puzzle
         private static List<List<int>> conflictGraph;
         public static Node FillGrid(string text)
         {
+            text += "\n";
             text = RemoveBetween(text, "#", "\n");
             string[] rows = text.Split("\n", StringSplitOptions.RemoveEmptyEntries);
             n = Int32.Parse(rows[0]);
+            Console.WriteLine("Size: " + n);
             if (rows.Length > n + 1|| rows.Length < n + 1 )
             {
                 Console.WriteLine("File is not valid");
@@ -74,8 +76,6 @@ namespace n_puzzle
                 Console.WriteLine("Puzzle is unsolvable");
                 return null;
             }
-            Console.WriteLine("0");
-            DisplayGrid(initialNode.grid);
             return initialNode;
 
         }
@@ -396,7 +396,7 @@ namespace n_puzzle
         private static string RemoveBetween(string sourceString, string startTag, string endTag)
         {
             var regex = new Regex($"{Regex.Escape(startTag)}(.*?){Regex.Escape(endTag)}", RegexOptions.RightToLeft);
-            return regex.Replace(sourceString, startTag + endTag).Trim('#');
+            return regex.Replace(sourceString, endTag);
         }
 
         public static int GetHValueMisplaced(int[,] grid)

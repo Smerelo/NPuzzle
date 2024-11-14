@@ -46,7 +46,7 @@ namespace n_puzzle
                 grid = Tools.FillGrid(text);
             } catch (Exception e) {
 
-                Console.WriteLine($"Failed to read and parse file {args[0]}: {e}");
+                Console.WriteLine($"Failed to read and parse file {args[0]}: {e.Message}");
                 Environment.Exit(0);
             }
             if (grid != null)

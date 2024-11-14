@@ -1,6 +1,6 @@
 # This puzzle is solvable
 4
-11 0  8  2  #dosol
+11 0  8  2
 15 4  14 9  
-6  12 10 5  
- 7  3  13 1  
+6  12 10 5      
+ 7  3  13 1 #asd

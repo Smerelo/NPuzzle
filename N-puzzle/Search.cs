@@ -31,6 +31,8 @@ namespace n_puzzle
                 }
                 if (currentNode.h == 0)
                 {
+                    Console.WriteLine("0");
+                    Tools.DisplayGrid(initialState.grid);
                     ShowFullPath(currentNode);                    
                     Console.WriteLine("Goal Reached");
                     Console.WriteLine("Total number of states in open set: " + openList.Count);
@@ -84,7 +86,6 @@ namespace n_puzzle
                     break;
                 currentNode = currentNode.parent;
             }
-
             int j = 1;
             for (int i = path.Count - 1; i > 0; i--)
             {
