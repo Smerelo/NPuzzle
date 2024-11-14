@@ -15,9 +15,9 @@ namespace n_puzzle
         public  static Heuristic heuristicUsed;
         static void Main(string[] args)
         {
-            if (args.Length == 0)
+            if (args.Length != 2)
             {
-                Console.WriteLine("No input file or file is not valid");
+                Console.WriteLine("usage: ./npuzzle [filename] [heuristic]");
                 Environment.Exit(0);    
 
             }
@@ -39,8 +39,16 @@ namespace n_puzzle
             }
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            string text = File.ReadAllText(args[0]);
-            Node grid = Tools.FillGrid(text);
+            string text = null;
+            Node grid = null;
+            try {
+                text = File.ReadAllText(args[0]);
+                grid = Tools.FillGrid(text);
+            } catch (Exception e) {
+
+                Console.WriteLine($"Failed to read and parse file {args[0]}: {e}");
+                Environment.Exit(0);
+            }
             if (grid != null)
             {
                 Search.Solve(grid);

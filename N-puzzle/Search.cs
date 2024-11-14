@@ -29,7 +29,6 @@ namespace n_puzzle
                 {
                     return;
                 }
-
                 if (currentNode.h == 0)
                 {
                     ShowFullPath(currentNode);                    

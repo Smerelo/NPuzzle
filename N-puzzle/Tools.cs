@@ -42,8 +42,29 @@ namespace n_puzzle
                 for (int j = 0; j < n; j++)
                 {
                     grid[i, j] = int.Parse(tmp[j]);
+                    if(grid[i, j] > n * n - 1){
+
+                    Console.WriteLine($"File is not valid (Numbers must be less than {n*n -1})");
+                    foreach (var item in rows)
+                      Console.WriteLine(item);
+                    Environment.Exit(0);    
+                    }
                     if (grid[i,j] == 0)
                         pos = new Point { X = i, Y = j };
+                }
+            }
+            for (int i = 0; i < n; i++){
+                for (int j = 0; j < n; j++){
+                    for(int p = 0; p < n; p++){
+                        for(int q = 0; q < n; q++){
+                            if ((i != p || j != q) && grid[i,j] == grid[p, q]) {
+                                Console.WriteLine($"File is not valid (no duplicates pls!)");
+                                foreach (var item in rows)
+                                    Console.WriteLine(item);
+                                Environment.Exit(0);
+                            }
+                        }
+                    }
                 }
             }
             Node initialNode = new Node(pos, grid);
@@ -378,36 +399,17 @@ namespace n_puzzle
             return regex.Replace(sourceString, startTag + endTag).Trim('#');
         }
 
-        public static int GetHValueManhattan(int[,] grid)
-        {
-            int h = 0;
-            int n = grid.GetLength(0); // Assuming a square grid
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    if (grid[i, j] != 0) // Assuming 0 is the blank tile
-                    {
-                        int targetX = (grid[i, j] - 1) / n;
-                        int targetY = (grid[i, j] - 1) % n;
-                        h += Math.Abs(targetX - i) + Math.Abs(targetY - j);
-                    }
-                }
-            }
-            return h;
-        }
-
         public static int GetHValueMisplaced(int[,] grid)
         {
             int misplacedCount = 0;
-            int n = grid.GetLength(0); // Assuming a square grid
+            int n = grid.GetLength(0);
             Point p;
             Point p2;
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
-                    p = new Point { X = i, Y = j }; // pos of current number
+                    p = new Point { X = i, Y = j };
                     p2 = goalState[grid[i, j]];
                     if (p != p2)
                     {

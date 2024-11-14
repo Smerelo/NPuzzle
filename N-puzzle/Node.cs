@@ -28,7 +28,7 @@ namespace n_puzzle
             switch (Program.heuristicUsed)
             {
                 case Program.Heuristic.Manhattan:
-                    h = Tools.GetHValueManhattan(grid);
+                    h = Tools.GetHValue(grid);
                     break;
                 case Program.Heuristic.Misplaced:
                     h = Tools.GetHValueMisplaced(grid);
