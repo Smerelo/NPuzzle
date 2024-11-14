@@ -2,7 +2,6 @@
   "profiles": {
     "N-puzzle": {
       "commandName": "Project",
-      "commandLineArgs": "test.txt MLC"
     }
   }
 }
